@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+}
+
+#mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#gameDiv {
+  display: flex;
+  flex-direction: row;
+  margin-top: 60px;
+  font-family: monospace;
+}
+
+#gameContainer {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgb(45, 44, 44);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15em;
+}
+
+.player {
+  font-size: 1.5em;
+}
+
+#p1 {
+  margin-right: 10px;
+}
+#p1 p {
+  text-align: center;
+  font-size: 1.8em;
+}
+#p2 {
+  margin-left: 10px;
+}
+#p2 p {
+  text-align: center;
+  font-size: 1.8em;
+}
+
+#resetBtn {
+  margin-top: 10px;
+  font-size: 1.3em;
+}
+#resetBtn:hover {
+  cursor: pointer;
+}
+
+/* JS activated styling */
+.hoverGreen {
+  background-color: rgba(42, 151, 42, 0.6);
+}
+.hoverRed {
+  background-color: rgba(219, 38, 38, 0.6);
+}
+
+.greenBox {
+  color: green;
+  background-color: rgba(0, 200, 0, 0.4);
+}
+
+.redBox {
+  color: red;
+  background-color: rgba(200, 0, 0, 0.4);
+}
