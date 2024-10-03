@@ -31,6 +31,9 @@ const allBoxes = [
   [boxG, boxH, boxI],
 ];
 
+// Set to fill with chosen boxes
+let chosenBoxes = new Set();
+
 // Adds one to totalClicks
 function incrementClicks() {
   box.forEach((addOne) => {
@@ -67,33 +70,29 @@ function boxHover() {
 
 // "AI" functionality here
 function aiPlayer() {
-  // Generates random number between 0-2
-  let randomRow;
-  let randomCol;
-  let filled = false;
-
-  // Looping for empty box while preventing infinite loop
-  for (let attempts = 0; attempts < 10 && !filled; attempts++) {
-    randomRow = Math.floor(Math.random() * 3);
-    randomCol = Math.floor(Math.random() * 3);
-
-    console.log("randomRow = " + randomRow);
-    console.log("randomCol = " + randomCol);
-
-    // Check if selected box is empty
-    if (allBoxes[randomRow][randomCol].innerHTML === "") {
-      allBoxes[randomRow][randomCol].innerHTML = "O";
-      allBoxes[randomRow][randomCol].classList.remove("greenBox");
-      allBoxes[randomRow][randomCol].classList.add("redBox");
-      totalClicks++;
-      filled = true;
-      console.log(`AI box select --> Row:${randomRow}, Col:${randomCol}`);
-      break;
+  // Filter out all empty boxes
+  let emptyBoxes = [];
+  box.forEach((aiBox) => {
+    if (aiBox.innerHTML === "") {
+      emptyBoxes.push(aiBox);
     }
-  }
+  });
 
-  if (!filled) {
-    console.log("No empty box found");
+  // Check if there are any empty boxes left
+  if (emptyBoxes.length > 0) {
+    // Choose a random empty box
+    let randomIndex = Math.floor(Math.random() * emptyBoxes.length);
+    let chosenBox = emptyBoxes[randomIndex];
+
+    // Place "O" in the chosen box
+    chosenBox.classList.add("redBox");
+    chosenBox.innerHTML = "O";
+
+    // Increase total clicks after AI move
+    totalClicks++;
+    console.log(`AI played. Total clicks: ${totalClicks}`);
+  } else {
+    console.log("No empty boxes left for AI to play.");
   }
 }
 
@@ -106,8 +105,14 @@ function fillBox() {
         checkBox.classList.remove("redBox");
         checkBox.innerHTML = "X";
 
-        totalClicks++;
+        // Adds all X to chosenBoxes
+        chosenBoxes.add(checkBox);
+        console.log(chosenBoxes);
 
+        totalClicks++;
+        console.log(`Total clicks: ${totalClicks}`);
+
+        // // Calling aiPlayer()
         let randomTime = Math.floor(Math.random() * 1000);
         setTimeout(aiPlayer, randomTime);
       }
@@ -121,6 +126,7 @@ function resetBoard() {
       filledBox.innerHTML = "";
       filledBox.classList.remove("greenBox");
       filledBox.classList.remove("redBox");
+      chosenBoxes.clear();
       totalClicks = 0;
       console.log(`Total clicks: ${totalClicks}`);
     });
