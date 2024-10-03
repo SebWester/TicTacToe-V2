@@ -86,6 +86,7 @@ function aiPlayer() {
 
     // Place "O" in the chosen box
     chosenBox.classList.add("redBox");
+    chosenBox.classList.remove("greenBox");
     chosenBox.innerHTML = "O";
 
     // Increase total clicks after AI move
