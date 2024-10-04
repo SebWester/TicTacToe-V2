@@ -2,6 +2,15 @@ const box = document.querySelectorAll(".box");
 const resetBtn = document.getElementById("resetBtn");
 let totalClicks = 0;
 
+// Accessing scoreboard
+let p1 = document.getElementById("point1");
+let pointP1 = 0;
+p1.innerHTML = pointP1;
+
+let p2 = document.getElementById("point2");
+let pointP2 = 0;
+p2.innerHTML = pointP2;
+
 // All win combinations
 const winningCombinations = [
   // Row
@@ -19,17 +28,6 @@ const winningCombinations = [
 
 // Set to fill with chosen boxes
 let chosenBoxes = new Set();
-
-// Adds one to totalClicks --> Redundant code, Remove?
-function incrementClicks() {
-  box.forEach((addOne) => {
-    addOne.addEventListener("click", function () {
-      totalClicks++;
-      console.log(`Total Clicks: ${totalClicks}`);
-      return totalClicks;
-    });
-  });
-}
 
 // Hover green or red depending on totalClicks
 function boxHover() {
@@ -193,6 +191,17 @@ function winGame() {
       box1.innerHTML === box3.innerHTML
     ) {
       console.log(`${box1.innerHTML} wins!`);
+
+      switch (box1.innerHTML) {
+        case "X":
+          pointP1++;
+          p1.innerHTML = pointP1;
+          break;
+        case "O":
+          pointP2++;
+          p2.innerHTML = pointP2;
+          break;
+      }
     }
   });
 }
