@@ -41,16 +41,24 @@
 #p1 {
   margin-right: 10px;
 }
+#p1 h2 {
+  color: darkgreen;
+}
 #p1 p {
   text-align: center;
   font-size: 1.8em;
+  color: green;
 }
 #p2 {
   margin-left: 10px;
 }
+#p2 h2 {
+  color: darkred;
+}
 #p2 p {
   text-align: center;
   font-size: 1.8em;
+  color: red;
 }
 
 #resetBtn {

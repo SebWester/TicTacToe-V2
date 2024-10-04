@@ -2,29 +2,6 @@ const box = document.querySelectorAll(".box");
 const resetBtn = document.getElementById("resetBtn");
 let totalClicks = 0;
 
-// // Getting all unique boxes
-// // Row one
-// const boxA = document.querySelector("#a");
-// const boxB = document.querySelector("#b");
-// const boxC = document.querySelector("#c");
-
-// // Row two
-// const boxD = document.querySelector("#d");
-// const boxE = document.querySelector("#e");
-// const boxF = document.querySelector("#f");
-
-// // Row one
-// const boxG = document.querySelector("#g");
-// const boxH = document.querySelector("#h");
-// const boxI = document.querySelector("#i");
-
-// // All boxes
-// const allBoxes = [
-//   [boxA, boxB, boxC],
-//   [boxD, boxE, boxF],
-//   [boxG, boxH, boxI],
-// ];
-
 // All win combinations
 const winningCombinations = [
   // Row
@@ -125,7 +102,7 @@ function winImminent() {
 
 // "AI" functionality here
 function aiPlayer() {
-  // Checks if player is about to win
+  // Checks if player is about to win (only runs once each turn)
   for (let i = 0; i <= 1; i++) {
     let randomNumber = Math.floor(Math.random() * 10 + 1);
 
@@ -136,16 +113,16 @@ function aiPlayer() {
       continue;
     } else {
       if (winImminent()) {
+        winGame();
         return;
       }
     }
   }
-  // if (winImminent()) {
-  //   return;
-  // }
 
   // Filter out all empty boxes
-  let emptyBoxes = Array.from(box).filter((aiBox) => aiBox.innerHTML === "");
+  let emptyBoxes = Array.from(box).filter(
+    (emptyBox) => emptyBox.innerHTML === ""
+  );
 
   // Check if there are any empty boxes left
   if (emptyBoxes.length > 0) {
@@ -181,6 +158,8 @@ function fillBox() {
 
         totalClicks++;
         console.log(`Total clicks: ${totalClicks}`);
+        // Check if player wins
+        winGame();
 
         // // Calling aiPlayer()
         let randomTime = Math.floor(Math.random() * 1000);
@@ -200,6 +179,21 @@ function resetBoard() {
       totalClicks = 0;
       console.log(`Total clicks: ${totalClicks}`);
     });
+  });
+}
+
+// Game win logic
+function winGame() {
+  winningCombinations.forEach((combination) => {
+    let [box1, box2, box3] = combination;
+
+    if (
+      box1.innerHTML !== "" &&
+      box1.innerHTML === box2.innerHTML &&
+      box1.innerHTML === box3.innerHTML
+    ) {
+      console.log(`${box1.innerHTML} wins!`);
+    }
   });
 }
 
