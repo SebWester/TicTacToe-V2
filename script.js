@@ -1,6 +1,9 @@
+const mainContainer = document.getElementById("mainContainer");
 const box = document.querySelectorAll(".box");
 const resetBtn = document.getElementById("resetBtn");
+const gameWinner = document.getElementById("gameWinner");
 let totalClicks = 0;
+let gameOn = true;
 
 // Accessing scoreboard
 let p1 = document.getElementById("point1");
@@ -33,6 +36,11 @@ let chosenBoxes = new Set();
 function boxHover() {
   box.forEach((box) => {
     box.addEventListener("mouseover", function () {
+      if (!gameOn) {
+        box.style.cursor = "not-allowed";
+        return;
+      }
+
       box.style.cursor = "pointer";
       if (totalClicks % 2 === 0) {
         box.classList.add("hoverGreen");
@@ -145,6 +153,10 @@ function aiPlayer() {
 function fillBox() {
   box.forEach((checkBox) => {
     checkBox.addEventListener("click", function () {
+      if (!gameOn) {
+        return;
+      }
+
       if (totalClicks % 2 === 0 && checkBox.innerHTML === "") {
         checkBox.classList.add("greenBox");
         checkBox.classList.remove("redBox");
@@ -158,6 +170,10 @@ function fillBox() {
         console.log(`Total clicks: ${totalClicks}`);
         // Check if player wins
         winGame();
+
+        if (!gameOn) {
+          return;
+        }
 
         // // Calling aiPlayer()
         let randomTime = Math.floor(Math.random() * 1000);
@@ -174,7 +190,11 @@ function resetBoard() {
       filledBox.classList.remove("greenBox");
       filledBox.classList.remove("redBox");
       chosenBoxes.clear();
+      gameWinner.style.display = "none";
+      mainContainer.classList.remove("bkgRed");
+      mainContainer.classList.remove("bkgGreen");
       totalClicks = 0;
+      gameOn = true;
       console.log(`Total clicks: ${totalClicks}`);
     });
   });
@@ -196,12 +216,22 @@ function winGame() {
         case "X":
           pointP1++;
           p1.innerHTML = pointP1;
+          mainContainer.classList.add("bkgGreen");
+          gameWinner.style.backgroundColor = "rgba(20, 250, 20, 0.9";
+          gameWinner.style.display = "block";
+          gameWinner.innerHTML = `${box1.innerHTML} wins!`;
           break;
         case "O":
           pointP2++;
           p2.innerHTML = pointP2;
+          mainContainer.classList.add("bkgRed");
+          gameWinner.style.backgroundColor = "rgba(240, 10, 10, 0.8)";
+          gameWinner.style.display = "block";
+          gameWinner.innerHTML = `${box1.innerHTML} wins!`;
           break;
       }
+      gameOn = false;
+      return;
     }
   });
 }
