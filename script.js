@@ -217,7 +217,7 @@ function winGame() {
           pointP1++;
           p1.innerHTML = pointP1;
           mainContainer.classList.add("bkgGreen");
-          gameWinner.style.backgroundColor = "rgba(20, 250, 20, 0.9";
+          gameWinner.style.backgroundColor = "rgba(10, 200, 10, 0.9";
           gameWinner.style.display = "block";
           gameWinner.innerHTML = `${box1.innerHTML} wins!`;
           break;
